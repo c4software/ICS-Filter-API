@@ -1,6 +1,6 @@
 services:
   ics-filter-api:
-    image: ics-filter-api:latest
+    container_name: ics-filter-api
     build:
       context: .
       dockerfile: Dockerfile

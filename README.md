@@ -1,6 +1,6 @@
 # ICS Filter API
 
-This project provides a RESTful API to filter out events from an ICS (iCalendar) feed based on a dynamic event name. The API is built with Flask and served using a production-grade WSGI server, Gunicorn. It is containerized using Docker for easy deployment.
+This project provides a Rest API to filter out events from an ICS feed. The API is built with Flask and served using a production-grade WSGI server, Gunicorn. It is containerized using Docker for easy deployment.
 
 ## Features
 
