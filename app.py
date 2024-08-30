@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 def filter_ics():
     ics_url = request.args.get('url')
-    filter_name = request.args.get('filter', 'Cours Annulée')  # Default to "Cours Annulée" if not provided
+    filter_name = request.args.get('filter', 'Cours Annulé')  # Default to "Cours Annulé" if not provided
 
     if not ics_url:
         return {"error": "Please provide the 'url' query parameter."}, 400
