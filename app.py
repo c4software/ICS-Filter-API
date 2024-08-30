@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 def filter_ics():
     ics_url = request.args.get('url')
-    filter_name = request.args.get('filter', 'Cours Annulé')  # Default to "Cours Annulé" if not provided
+    filter_name = request.args.get('filter', '')  # Default to empty string, so that all events are returned
 
     if not ics_url:
         return {"error": "Please provide the 'url' query parameter."}, 400
@@ -23,7 +23,6 @@ def filter_ics():
 
     calendar = Calendar(ics_content)
 
-    # Filter out events that contain the specified name
     filtered_events = [event for event in calendar.events if filter_name.lower() not in event.name.lower()]
 
     new_calendar = Calendar(events=filtered_events)
