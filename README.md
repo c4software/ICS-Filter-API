@@ -106,3 +106,16 @@ pip install gunicorn
 export PYTHONUNBUFFERED=1
 gunicorn -w 4 -b 0.0.0.0:5000 app:app
 ```
+
+### Force URL or/and Filter
+
+If you want to force the URL or/and the filter, you can set the `ICS_URL` and/or `FILTER` environment variables.
+
+```bash
+export ICS_URL="https://example.com/your-calendar.ics"
+export FILTER="Holiday"
+```
+
+By setting these environment variables, the API will use the specified URL and filter, ignoring the query parameters.
+
+You can achieve the same result in the `docker-compose.yml` file by setting the environment variables under the `environment` key.
