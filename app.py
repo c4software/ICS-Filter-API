@@ -15,9 +15,9 @@ def filter_ics():
         ics_url = request.args.get('url')
     
     if 'FILTER' in os.environ:
-        filter_name = os.environ['FILTER']
+        filters = os.environ['FILTER'].split('|')
     else:
-        filter_name = request.args.get('filter', '') # Default to empty string, so that all events are returned
+        filters = request.args.getlist('filter') # Default to empty string, so that all events are returned
 
     if not ics_url:
         return {"error": "Please provide the 'url' query parameter."}, 400
@@ -33,7 +33,8 @@ def filter_ics():
 
     calendar = Calendar(ics_content)
 
-    filtered_events = [event for event in calendar.events if filter_name.lower() not in event.name.lower()]
+    # Filter events based on the filter query parameter
+    filtered_events = [event for event in calendar.events if not any(f.lower() in event.name.lower() for f in filters)]
 
     new_calendar = Calendar(events=filtered_events)
     filtered_ics_content = new_calendar.serialize()

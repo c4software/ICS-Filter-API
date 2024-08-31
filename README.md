@@ -67,6 +67,7 @@ The API will be available at `http://localhost:5000`.
 
 - **`url`** (required): The URL of the ICS feed. This can be provided as a raw URL or as a base64-encoded string.
 - **`filter`** (optional): The event name to filter out. Default is `"Cours Annulée"`.
+- **`filter`** can be provided multiple times to filter out multiple event names. For example, `filter=Holiday&filter=Vacation`.
 
 ### Using a Base64-Encoded URL
 
@@ -113,7 +114,7 @@ If you want to force the URL or/and the filter, you can set the `ICS_URL` and/or
 
 ```bash
 export ICS_URL="https://example.com/your-calendar.ics"
-export FILTER="Holiday"
+export FILTER="Holiday" # for multiple filters you can use this synthax: "Holiday|Vacation"
 ```
 
 By setting these environment variables, the API will use the specified URL and filter, ignoring the query parameters.
