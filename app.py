@@ -2,17 +2,27 @@ from flask import Flask, request, Response
 from ics import Calendar
 import requests
 import base64
+import os
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def filter_ics():
-    ics_url = request.args.get('url')
-    filter_name = request.args.get('filter', '')  # Default to empty string, so that all events are returned
+    # Read env variables for url and filter
+    if 'ICS_URL' in os.environ:
+        ics_url = os.environ['ICS_URL']
+    else:
+        ics_url = request.args.get('url')
+    
+    if 'FILTER' in os.environ:
+        filter_name = os.environ['FILTER']
+    else:
+        filter_name = request.args.get('filter', '') # Default to empty string, so that all events are returned
 
     if not ics_url:
         return {"error": "Please provide the 'url' query parameter."}, 400
     
+    # If the ics_url is base64 encoded, decode it (aH prefix is because the encoding of htt… starts with aH)
     if ics_url.startswith("aH"):
         ics_url = base64.b64decode(ics_url).decode()
 
